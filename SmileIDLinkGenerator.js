@@ -224,8 +224,13 @@ async function generatePersonalLinks() {
     idTypes: [
       {
         country: "NG",
+        id_type: "BVN",
+        verification_method: "biometric_kyc",
+      },
+      {
+        country: "NG",
         id_type: "IDENTITY_CARD",
-        verification_method: "doc_verification",
+        verification_method: "biometric_kyc",
       },
       {
         country: "NG",

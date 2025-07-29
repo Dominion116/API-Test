@@ -4,13 +4,13 @@ const config = require("./config");
 async function runExample() {
   try {
     // Check if required environment variables are set
-    if (!config.apiKey || config.apiKey === 'your-actual-api-key-here') {
-      console.log('❌ Please set SMILE_API_KEY in your .env file');
+    if (!config.apiKey || config.apiKey === "your-actual-api-key-here") {
+      console.log("❌ Please set SMILE_API_KEY in your .env file");
       return;
     }
 
     if (!config.webhookUrl) {
-      console.log('❌ Please set WEBHOOK_URL in your .env file');
+      console.log("❌ Please set WEBHOOK_URL in your .env file");
       return;
     }
 
@@ -31,17 +31,27 @@ async function runExample() {
       logoUrl: config.logoUrl,
       idTypes: [
         {
-          country: config.defaultCountry,
-          id_type: config.defaultIdType,
-          verification_method: config.defaultVerificationMethod,
+          country: "NG",
+          id_type: "BVN",
+          verification_method: "enhanced_kyc",
         },
         {
-          country: config.defaultCountry,
-          id_type: "VOTER_ID",
-          verification_method: config.defaultVerificationMethod,
-        },
+        country: "NG",
+        id_type: "IDENTITY_CARD",
+        verification_method: "doc_verification",
+      },
+    //   {
+    //     country: "NG",
+    //     id_type: "VOTERS_ID",
+    //     verification_method: "doc_verification",
+    //   },
+    //   {
+    //     country: "NG",
+    //     id_type: "DRIVERS_LICENSE",
+    //     verification_method: "doc_verification",
+    //   },
       ],
-      expiresAt: config.getExpiryDate()
+      expiresAt: config.getExpiryDate(),
     };
 
     console.log("🚀 Creating personal link...");
@@ -49,7 +59,10 @@ async function runExample() {
     console.log("  - Environment:", config.environment);
     console.log("  - Company:", config.companyName);
     console.log("  - Webhook:", config.webhookUrl);
-    console.log("  - ID Types:", singleLinkConfig.idTypes.map(id => id.id_type).join(", "));
+    console.log(
+      "  - ID Types:",
+      singleLinkConfig.idTypes.map((id) => id.id_type).join(", ")
+    );
     console.log("");
 
     const result = await linkGenerator.createSingleUseLink(singleLinkConfig);
